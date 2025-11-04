@@ -5,8 +5,8 @@ Automated ORE mining with optimal strategies and real-time WebSocket monitoring.
 ## Features
 
 - **Automated Mining**: WebSocket-driven continuous mining with automatic round detection
-- **Optimal Strategies**: Data-driven square selection algorithms (18 or 13 squares)
-- **Real-time Monitoring**: Live tracking of deployments, wins, and profitability
+- **Flexible Strategies**: Configurable square selection algorithms (10, 13, or 18 squares)
+- **Real-time Monitoring**: Live tracking of deployments and rewards
 - **Easy Setup**: Simple environment variable configuration
 
 ## Quick Start
@@ -51,7 +51,7 @@ cargo run --release
 
 ## Mining Strategies
 
-This miner is built on top of the base ORE protocol and implements advanced square selection algorithms. The core strategy selects the **least crowded squares** on the board for better share percentage, combined with **late deployment** (5-10 seconds before round end) for maximum information.
+This miner is built on top of the base ORE protocol and implements square selection algorithms. The core strategy selects the **least crowded squares** on the board for better share percentage, combined with **late deployment** (5-10 seconds before round end) for maximum information.
 
 ### Build Your Own Strategy
 
@@ -64,41 +64,23 @@ The codebase is designed to be extensible. Check out [cli/src/deploy_optimal_ev.
 
 The base implementation provides WebSocket monitoring, automatic checkpointing, and transaction submission - you just focus on the strategy!
 
-### My Personal Favorites
+### Configurable Square Coverage
 
-After extensive testing and real-world mining, here are my recommended strategies:
+You can configure how many squares to deploy to based on your preferences and bankroll:
 
-#### 18-Square Strategy (My Top Pick!)
-- **Win Rate**: 18.2% (proven in backtesting)
+#### 18-Square Strategy
 - **Coverage**: 72% of board
-- **Why I Love It**: Combines "Hot Hand" effect with "Golden 5" squares for consistent wins
-- **Best For**: When you want reliable returns with lower variance
 - **Config**: `export NUM_SQUARES=18`
 
-See [STRATEGY_18_SQUARES.md](STRATEGY_18_SQUARES.md) for the full breakdown of the Hot Hand + Golden 5 combo.
-
-#### 13-Square Strategy (Great for Medium Bankrolls)
-- **Win Rate**: 13%
+#### 13-Square Strategy
 - **Coverage**: 52% of board
-- **Why I Love It**: Optimal balance between share percentage and win frequency
-- **Best For**: Medium bankrolls, 76.5% survival rate
 - **Config**: `export NUM_SQUARES=13`
 
-See [STRATEGY_13_SQUARES.md](STRATEGY_13_SQUARES.md) for detailed analysis.
-
-#### 10-Square Strategy (Proven Performer)
-- **Win Rate**: 37.5% (proven over 40 rounds)
+#### 10-Square Strategy
 - **Coverage**: 40% of board
-- **Why I Love It**: High win rate with good share percentage - wins every ~3 rounds
-- **Best For**: Small to medium bankrolls, consistent feedback
 - **Config**: `export NUM_SQUARES=10` (default)
 
-### Strategy Selection Tips
-
-- **Small bankroll (<0.05 SOL)**: Start with 10 squares for consistent wins
-- **Medium bankroll (0.05-0.15 SOL)**: Try 13 squares for optimal balance
-- **Larger bankroll (>0.15 SOL)**: Use 18 squares for maximum coverage
-- **Testing mode**: Start small and track results for 20-30 rounds before scaling up
+Test different configurations and track your own results to find what works best for your situation.
 
 ## Available Commands
 
@@ -155,13 +137,13 @@ BET_AMOUNT=20000000            # Total deployment in lamports (0.02 SOL)
 Edit `NUM_SQUARES` environment variable to switch strategies:
 
 ```bash
-# 10 squares (default - proven 37.5% win rate)
+# 10 squares (default)
 export NUM_SQUARES=10
 
-# 13 squares (balanced)
+# 13 squares
 export NUM_SQUARES=13
 
-# 18 squares (high coverage)
+# 18 squares
 export NUM_SQUARES=18
 ```
 
@@ -186,8 +168,7 @@ ore/
 
 - [Quick Start Guide](QUICKSTART_AUTO_MINE.md) - Step-by-step setup
 - [TUI Guide](TUI_GUIDE.md) - Terminal UI usage
-- [18-Square Strategy](STRATEGY_18_SQUARES.md) - Advanced strategy
-- [13-Square Strategy](STRATEGY_13_SQUARES.md) - Balanced strategy
+- [Strategy Documentation](STRATEGY_18_SQUARES.md) - Strategy examples and analysis
 
 ## Security
 
