@@ -51,27 +51,54 @@ cargo run --release
 
 ## Mining Strategies
 
-### 18-Square Strategy (Default)
+This miner is built on top of the base ORE protocol and implements advanced square selection algorithms. The core strategy selects the **least crowded squares** on the board for better share percentage, combined with **late deployment** (5-10 seconds before round end) for maximum information.
+
+### Build Your Own Strategy
+
+The codebase is designed to be extensible. Check out [cli/src/deploy_optimal_ev.rs](cli/src/deploy_optimal_ev.rs) to see how strategies are implemented. You can:
+
+- Modify the `select_optimal_squares()` function to implement your own selection logic
+- Add filters based on previous winners, square patterns, or custom heuristics
+- Adjust timing, deployment amounts, and risk parameters
+- Experiment with different combinations of squares
+
+The base implementation provides WebSocket monitoring, automatic checkpointing, and transaction submission - you just focus on the strategy!
+
+### My Personal Favorites
+
+After extensive testing and real-world mining, here are my recommended strategies:
+
+#### 18-Square Strategy (My Top Pick!)
 - **Win Rate**: 18.2% (proven in backtesting)
 - **Coverage**: 72% of board
-- **Best For**: Consistent wins, lower variance
+- **Why I Love It**: Combines "Hot Hand" effect with "Golden 5" squares for consistent wins
+- **Best For**: When you want reliable returns with lower variance
 - **Config**: `export NUM_SQUARES=18`
 
-See [STRATEGY_18_SQUARES.md](STRATEGY_18_SQUARES.md) for details.
+See [STRATEGY_18_SQUARES.md](STRATEGY_18_SQUARES.md) for the full breakdown of the Hot Hand + Golden 5 combo.
 
-### 13-Square Strategy
+#### 13-Square Strategy (Great for Medium Bankrolls)
 - **Win Rate**: 13%
 - **Coverage**: 52% of board
-- **Best For**: Better share per square, medium bankroll
+- **Why I Love It**: Optimal balance between share percentage and win frequency
+- **Best For**: Medium bankrolls, 76.5% survival rate
 - **Config**: `export NUM_SQUARES=13`
 
-See [STRATEGY_13_SQUARES.md](STRATEGY_13_SQUARES.md) for details.
+See [STRATEGY_13_SQUARES.md](STRATEGY_13_SQUARES.md) for detailed analysis.
 
-### 10-Square Strategy
+#### 10-Square Strategy (Proven Performer)
 - **Win Rate**: 37.5% (proven over 40 rounds)
 - **Coverage**: 40% of board
-- **Best For**: Small to medium bankrolls
+- **Why I Love It**: High win rate with good share percentage - wins every ~3 rounds
+- **Best For**: Small to medium bankrolls, consistent feedback
 - **Config**: `export NUM_SQUARES=10` (default)
+
+### Strategy Selection Tips
+
+- **Small bankroll (<0.05 SOL)**: Start with 10 squares for consistent wins
+- **Medium bankroll (0.05-0.15 SOL)**: Try 13 squares for optimal balance
+- **Larger bankroll (>0.15 SOL)**: Use 18 squares for maximum coverage
+- **Testing mode**: Start small and track results for 20-30 rounds before scaling up
 
 ## Available Commands
 
@@ -173,6 +200,18 @@ ore/
 
 For issues or questions, please open an issue on GitHub.
 
+## Contributing
+
+Feel free to fork this repository and experiment with your own strategies! If you discover something interesting, open a PR or share your findings.
+
+The beauty of this codebase is that it provides all the infrastructure (WebSocket monitoring, transaction handling, checkpointing) so you can focus purely on strategy development.
+
 ## License
 
 See upstream ORE protocol for license information.
+
+---
+
+**Happy Mining!** ⛏️
+
+May your squares be least crowded and your motherlode hits be frequent!
