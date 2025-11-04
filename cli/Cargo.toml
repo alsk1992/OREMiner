@@ -34,3 +34,8 @@ spl-token.workspace = true
 spl-associated-token-account.workspace = true
 steel.workspace = true
 tokio.workspace = true
+futures-util = "0.3"
+ratatui = "0.29.0"
+crossterm = "0.28.1"
+chrono = "0.4"
+serde = { version = "1.0", features = ["derive"] }

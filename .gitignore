@@ -1,3 +1,48 @@
 .DS_Store
 target
 test-ledger
+
+# Sensitive files - DO NOT COMMIT
+.env
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+*.key
+*.pem
+*.p12
+*.pfx
+keypair*
+wallet*
+**/keypair*
+**/wallet*
+
+# Research and analysis output (contains on-chain data)
+*.jsonl
+research_*.jsonl
+optimal_ev_results.jsonl
+ore_mining_results.jsonl
+research_100_rounds.jsonl
+pool_analysis.json
+
+# Personal scripts and notes
+*.sh
+!setup_keypair.sh
+!setup_new_wallet.sh
+!mine_websocket.sh
+!deploy_optimal.sh
+!run-tui.sh
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Analysis outputs
+analysis_output.txt
+*.png
+*.jpg
+
+# Logs
+*.log
