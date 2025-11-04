@@ -51,7 +51,12 @@ cargo run --release
 
 ## Mining Strategies
 
-This miner is built on top of the base ORE protocol and implements square selection algorithms. The core strategy selects the **least crowded squares** on the board for better share percentage, combined with **late deployment** (5-10 seconds before round end) for maximum information.
+This miner is built on top of the base ORE protocol and implements square selection algorithms. The core strategy focuses on two key techniques:
+
+1. **Least Crowded Selection**: Analyzes the board and deploys to the least densely bought squares for better share percentage per deployment
+2. **Late Snipe Timing**: Deploys in the last 5-10 seconds before round end, giving you maximum information about board state before committing
+
+This combination allows you to see exactly where the least competition is and deploy right before the round closes.
 
 ### Build Your Own Strategy
 
@@ -112,10 +117,11 @@ COMMAND=treasury cargo run --release
 ## How It Works
 
 1. **WebSocket Monitoring**: Connects to Solana WebSocket for real-time round updates
-2. **Square Selection**: Analyzes board state and selects least crowded squares
-3. **Late Deployment**: Deploys 5-10 seconds before round end for maximum information
-4. **Auto Checkpoint**: Automatically claims rewards from completed rounds
-5. **Continuous Loop**: Repeats for next round
+2. **Board Analysis**: Continuously monitors which squares have the least density (deployments)
+3. **Late Snipe**: Waits until 5-10 seconds before round end to deploy
+4. **Optimal Selection**: Deploys to N least densely bought squares for best share ratio
+5. **Auto Checkpoint**: Automatically claims rewards from completed rounds
+6. **Continuous Loop**: Repeats for next round
 
 ## Configuration
 
